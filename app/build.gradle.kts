@@ -1,3 +1,7 @@
+import java.io.File
+import java.io.FileInputStream
+import java.util.*
+
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
     id("com.android.application")
@@ -12,6 +16,11 @@ android {
     compileSdk = 34
 
     defaultConfig {
+        val prop =
+            Properties().apply {
+                load(FileInputStream(File(rootProject.rootDir, "local.properties")))
+            }
+
         applicationId = "com.mena97villalobos.gdgdemo"
         minSdk = 29
         targetSdk = 34
@@ -19,15 +28,29 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField(
+            "String", "CURRENCY_API_KEY", "\"${prop.getProperty("CURRENCY_API_KEY")}\"")
     }
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isDebuggable = false
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+        }
+        debug {
+            isMinifyEnabled = false
+            isDebuggable = true
+            multiDexEnabled = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            buildConfigField("Boolean", "MOCK_CONFIG_ENABLE", "false")
+        }
+        create("qa1") { initWith(getByName("debug")) }
+        create("stage") {
+            initWith(getByName("debug"))
+            buildConfigField("Boolean", "MOCK_CONFIG_ENABLE", "false")
         }
     }
     compileOptions {
@@ -36,6 +59,9 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+    buildFeatures {
+        buildConfig = true
     }
 }
 
@@ -68,6 +94,14 @@ dependencies {
     implementation("androidx.room:room-ktx:$roomVersion")
 
     // Sheets
-    implementation("com.maxkeppeler.sheets:core:2.2.5")
-    implementation("com.maxkeppeler.sheets:input:2.2.5")
+    implementation("com.maxkeppeler.sheets:core:2.2.9")
+    implementation("com.maxkeppeler.sheets:input:2.2.9")
+
+    // Networking
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
+    implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
+    implementation("com.squareup.moshi:moshi:1.15.0")
+    implementation("com.google.code.gson:gson:2.10.1")
+    kapt("com.squareup.moshi:moshi-kotlin-codegen:1.15.0")
 }

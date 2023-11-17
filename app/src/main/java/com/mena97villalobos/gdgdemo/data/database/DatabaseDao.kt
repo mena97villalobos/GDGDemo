@@ -1,10 +1,12 @@
-package com.mena97villalobos.gdgdemo.data
+package com.mena97villalobos.gdgdemo.data.database
 
+import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 
+@Dao
 interface DatabaseDao {
 
     @Update

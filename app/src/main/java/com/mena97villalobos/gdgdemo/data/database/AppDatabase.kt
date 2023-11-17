@@ -1,4 +1,4 @@
-package com.mena97villalobos.gdgdemo.data
+package com.mena97villalobos.gdgdemo.data.database
 
 import android.content.Context
 import androidx.room.Database

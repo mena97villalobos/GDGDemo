@@ -1,0 +1,22 @@
+[
+  {
+    "description": "GET Currencies",
+    "fileName": "GET_currencies",
+    "pathPattern": ".*currencies",
+    "method": "GET",
+    "statusCode": 200,
+    "isEnabled": false,
+    "fileExt": ".json",
+    "contentType": "application/json"
+  },
+  {
+    "description": "GET Exchange Rate",
+    "fileName": "GET_exchange_rate",
+    "pathPattern": ".*latest?.*",
+    "method": "GET",
+    "statusCode": 200,
+    "isEnabled": false,
+    "fileExt": ".json",
+    "contentType": "application/json"
+  }
+]
