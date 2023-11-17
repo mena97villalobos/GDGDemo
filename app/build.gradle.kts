@@ -47,7 +47,10 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             buildConfigField("Boolean", "MOCK_CONFIG_ENABLE", "false")
         }
-        create("qa1") { initWith(getByName("debug")) }
+        create("qa1") {
+            initWith(getByName("debug"))
+            buildConfigField("Boolean", "MOCK_CONFIG_ENABLE", "false")
+        }
         create("stage") {
             initWith(getByName("debug"))
             buildConfigField("Boolean", "MOCK_CONFIG_ENABLE", "false")
