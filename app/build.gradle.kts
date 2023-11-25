@@ -45,15 +45,15 @@ android {
             multiDexEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-            buildConfigField("Boolean", "MOCK_CONFIG_ENABLE", "false")
+            buildConfigField("Boolean", "MOCK_CONFIG_ENABLED", "false")
         }
         create("qa1") {
             initWith(getByName("debug"))
-            buildConfigField("Boolean", "MOCK_CONFIG_ENABLE", "false")
+            buildConfigField("Boolean", "MOCK_CONFIG_ENABLED", "false")
         }
         create("stage") {
             initWith(getByName("debug"))
-            buildConfigField("Boolean", "MOCK_CONFIG_ENABLE", "false")
+            buildConfigField("Boolean", "MOCK_CONFIG_ENABLED", "false")
         }
     }
     compileOptions {

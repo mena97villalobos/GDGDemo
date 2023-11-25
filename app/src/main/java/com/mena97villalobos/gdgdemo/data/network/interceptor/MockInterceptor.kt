@@ -26,7 +26,7 @@ class MockInterceptor(private val context: Context) : Interceptor {
 
         val request = chain.request()
 
-        if (BuildConfig.MOCK_CONFIG_ENABLE) {
+        if (BuildConfig.MOCK_CONFIG_ENABLED) {
             val config = getMockConfiguration(method, uri)
             return if (config != null) {
                 val responseString =
